@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -29,8 +32,12 @@ public class SystemControllerTest {
     public void systemRestControllerTest() throws Exception {
         SystemInformation si = new SystemInformation("TestingSystem", "123.123.123.123");
         given(systemService.getSystemInfo("TestingSystem")).willReturn(si);
-        ResponseEntity<SystemInformation> systemEntity = testRestTemplate.getForEntity("/system/TestingSystem"
-                , SystemInformation.class, 1);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "TestAuth");
+        HttpEntity<SystemInformation> entity = new HttpEntity<>(null, headers);
+
+        ResponseEntity<SystemInformation> systemEntity = testRestTemplate.exchange("/system/TestingSystem", HttpMethod.GET, entity, SystemInformation.class);
 
         SystemInformation resBody = systemEntity.getBody();
         assertThat(resBody.getId()).isEqualTo(si.getId());
