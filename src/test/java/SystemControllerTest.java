@@ -1,4 +1,3 @@
-import ch.qos.logback.core.util.SystemInfo;
 import github.atinjin.dimpengine.Dimpengine;
 import github.atinjin.dimpengine.SystemInformation;
 import github.atinjin.dimpengine.SystemService;
@@ -38,5 +37,6 @@ public class SystemControllerTest {
         assertThat(resBody.getIpAddress()).isEqualTo(si.getIpAddress());
 
     }
+
 
 }

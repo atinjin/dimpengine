@@ -1,11 +1,7 @@
 package github.atinjin.dimpengine;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by ryanjin on 12/05/2017.
@@ -19,5 +15,10 @@ public class SystemController {
     @RequestMapping(value = "/system/{id}")
     public SystemInformation getSystemInfo(@PathVariable("id") String id) {
         return systemService.getSystemInfo(id);
+    }
+
+    @RequestMapping(value = "/system", method = RequestMethod.POST)
+    public SystemInformation postSystemInfo(@RequestBody SystemInformation systemInformation) {
+        return systemService.saveSystemInfo(systemInformation);
     }
 }

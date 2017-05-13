@@ -15,4 +15,8 @@ public class SystemService {
     public SystemInformation getSystemInfo(String id) {
         return systemRepository.findOne(id);
     }
+
+    public SystemInformation saveSystemInfo(SystemInformation systemInformation) {
+        return systemRepository.save(systemInformation);
+    }
 }
